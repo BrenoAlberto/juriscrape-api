@@ -1,7 +1,3 @@
-
-
-
-
 import { Collection, Db, WithId } from "mongodb"
 import { CourtCaseModel } from "./model"
 
