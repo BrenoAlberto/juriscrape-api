@@ -9,7 +9,7 @@ export class CourtCaseRepository {
     private collection: Collection<CourtCaseModel>
 
     constructor(db: Db) {
-        this.collection = db.collection("courtCasesDebug")
+        this.collection = db.collection("courtCases")
         this.collection.createIndex({ caseNumber: 1 })
     }
 
