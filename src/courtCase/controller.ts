@@ -35,6 +35,9 @@ export class CourtCaseController {
     async insertCourtCases(req: Request, res: Response): Promise<Response> {
         try {
             const courtCases = req.body as CourtCaseModel[];
+            courtCases.forEach(courtCase => {
+                console.log(`Inserting court case ${courtCase.caseNumber}`);
+            });
             await this.courtCaseService.upsertMany(courtCases);
             return res.status(200).json({ message: 'Court cases inserted successfully' });
         } catch (err) {
