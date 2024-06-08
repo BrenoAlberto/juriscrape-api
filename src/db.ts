@@ -7,7 +7,7 @@ let _db: Db;
 export async function initializeDb() {
     try {
         await mongoClient.connect();
-        _db = mongoClient.db("tribunal-de-justica");
+        _db = mongoClient.db("tj");
         console.log("Connected to MongoDB");
     } catch (error) {
         console.error("Failed to connect to MongoDB", error);
