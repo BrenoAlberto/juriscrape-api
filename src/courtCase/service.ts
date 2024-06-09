@@ -1,3 +1,4 @@
+import { logger } from '@tjcommon/common'
 import { type CourtCaseModel } from './model'
 import { type CourtCaseRepository } from './repository'
 
@@ -36,14 +37,17 @@ export class CourtCaseService {
   }
 
   public async addCourtCasesToCrawlQueue (courtCases: CrawlCourtCasesReqBody[]): Promise<Response> {
-    console.log(JSON.stringify(courtCases))
-    return await fetch(crawlCourtCasesURL, {
+    logger.info(`POST ${crawlCourtCasesURL}`)
+    const response = await fetch(crawlCourtCasesURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(courtCases)
     })
+    logger.info(`Status: ${response.status}`)
+    logger.info(`Message: ${response.statusText}`)
+    return response
   }
 
   public getCourtCasesStatus (caseNumbers: string[], courtCases: CourtCaseModel[]): Array<{ caseNumber: string, crawlStatus: string }> {

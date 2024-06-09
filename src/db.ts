@@ -1,4 +1,5 @@
 import { MongoClient, type Db } from 'mongodb'
+import { logger } from '@tjcommon/common'
 
 export const mongoClient = new MongoClient(process.env.MONGO_URL ?? 'mongodb://localhost:27017')
 let _db: Db
@@ -7,9 +8,9 @@ export async function initializeDb (): Promise<void> {
   try {
     await mongoClient.connect()
     _db = mongoClient.db('tj')
-    console.log('Connected to MongoDB')
+    logger.info('Connected to MongoDB')
   } catch (error) {
-    console.error('Failed to connect to MongoDB', error)
+    logger.crit('Failed to connect to MongoDB', error)
     process.exit(1)
   }
 }

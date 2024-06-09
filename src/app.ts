@@ -5,6 +5,7 @@ import { CourtCaseController } from './courtCase/controller'
 import { getDb, initializeDb } from './db'
 
 import dotenv from 'dotenv'
+import { logger } from '@tjcommon/common'
 dotenv.config()
 
 const app = express()
@@ -20,5 +21,5 @@ initializeDb().then(async () => {
   app.post('/insert-court-cases', async (req, res) => await courtCaseController.insertCourtCases(req, res))
   app.post('/get-court-cases', async (req, res) => await courtCaseController.getCourtCasesByCaseNumbers(req, res))
 
-  app.listen(3000, () => { console.log('Server is running on port 3000') })
-}).catch((console.error))
+  app.listen(3000, () => { logger.info('Server is running on port 3000') })
+}).catch((logger.error))
