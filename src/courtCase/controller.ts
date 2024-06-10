@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import { type CourtCaseService } from './service'
 import { type CourtCaseModel } from './model'
-import { logger } from '@tjcommon/common'
+import { logger } from '@juriscrape/common'
 
 export class CourtCaseController {
   constructor (private readonly courtCaseService: CourtCaseService) { }

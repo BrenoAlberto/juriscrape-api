@@ -5,7 +5,7 @@ import { CourtCaseController } from './courtCase/controller'
 import { getDb, initializeDb } from './db'
 
 import dotenv from 'dotenv'
-import { logger } from '@tjcommon/common'
+import { logger } from '@juriscrape/common'
 dotenv.config()
 
 const app = express()

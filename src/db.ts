@@ -1,5 +1,5 @@
 import { MongoClient, type Db } from 'mongodb'
-import { logger } from '@tjcommon/common'
+import { logger } from '@juriscrape/common'
 
 export const mongoClient = new MongoClient(process.env.MONGO_URL ?? 'mongodb://localhost:27017')
 let _db: Db

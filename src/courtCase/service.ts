@@ -1,4 +1,4 @@
-import { logger } from '@tjcommon/common'
+import { logger } from '@juriscrape/common'
 import { type CourtCaseModel } from './model'
 import { type CourtCaseRepository } from './repository'
 
