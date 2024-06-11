@@ -7,7 +7,7 @@ let _db: Db
 export async function initializeDb (): Promise<void> {
   try {
     await mongoClient.connect()
-    _db = mongoClient.db('tj')
+    _db = mongoClient.db('juriscrape')
     logger.info('Connected to MongoDB')
   } catch (error) {
     logger.crit('Failed to connect to MongoDB', error)

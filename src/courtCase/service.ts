@@ -9,7 +9,12 @@ interface CrawlCourtCasesReqBody {
   court: string
 }
 
-const crawlCourtCasesURL = `${process.env.TJ_CRAWLER_URL!}/crawl-court-cases`
+// const crawlCourtCasesURL = `${process.env.TJ_CRAWLER_URL!}/crawl-court-cases`
+
+const crawlerServicesURL: Record<string, string> = {
+  TJAL: `${process.env.TJAL_ESAJ_URL!}/crawl-court-cases`,
+  TJCE: `${process.env.TJCE_ESAJ_URL!}/crawl-court-cases`
+}
 
 export class CourtCaseService {
   private readonly courtMap: Record<string, string> = {
@@ -36,18 +41,32 @@ export class CourtCaseService {
     return await this.courtCaseRepository.findManyByCourtCaseNumbers(caseNumbers)
   }
 
-  public async addCourtCasesToCrawlQueue (courtCases: CrawlCourtCasesReqBody[]): Promise<Response> {
-    logger.info(`POST ${crawlCourtCasesURL}`)
-    const response = await fetch(crawlCourtCasesURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(courtCases)
+  public async addCourtCasesToCrawlQueue (courtCases: CrawlCourtCasesReqBody[]): Promise<void> {
+    console.log(courtCases.length)
+    courtCases.forEach(async courtCase => {
+      const url = crawlerServicesURL[courtCase.court]
+      logger.info(`POST ${url}`)
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify([courtCase])
+      })
+      logger.info(`Status: ${response.status}`)
+      logger.info(`Message: ${response.statusText}`)
     })
-    logger.info(`Status: ${response.status}`)
-    logger.info(`Message: ${response.statusText}`)
-    return response
+    // logger.info(`POST ${crawlCourtCasesURL}`)
+    // const response = await fetch(crawlCourtCasesURL, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(courtCases)
+    // })
+    // logger.info(`Status: ${response.status}`)
+    // logger.info(`Message: ${response.statusText}`)
+    // return response
   }
 
   public getCourtCasesStatus (caseNumbers: string[], courtCases: CourtCaseModel[]): Array<{ caseNumber: string, crawlStatus: string }> {
